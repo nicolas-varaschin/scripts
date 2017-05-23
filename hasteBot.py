@@ -44,7 +44,7 @@ def get_link(msg):
 def send_paste(chat_id, msg):
     if msg['text'] != "/start":
         bot.sendMessage(chat_id, "Espera...", parse_mode='Markdown')
-        bot.sendMessage(chat_id, get_link(msg), parse_mode='Markdown')
+        bot.sendMessage(chat_id, get_link(msg['text']), parse_mode='Markdown')
     else:
         bot.sendMessage(chat_id, "Genera links de lo que se pega aca", parse_mode='Markdown')
 
@@ -57,7 +57,6 @@ def handle(msg):
     except Exception, e:
         logging.warning("Error: {} {}".format(e, msg))
         bot.sendMessage(chat_id, "Error: {}".format(e), parse_mode='Markdown')
-
 TOKEN = open('hasteBot.token').read().strip()
 bot = telepot.Bot(TOKEN)
 MessageLoop(bot, handle).run_as_thread()
